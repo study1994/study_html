@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>05函数</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">概述</p>一个较大的程序一般应分为若干个模块，每个模块实现一个特定的功能。<br>\n这种结构化程序设计有许多优点，首先可以避免程序的重复，提高程序的重用率；<br>\n其次程序划分成若干模块后，可以由多人同时设计，从而缩短程序设计的周期。<br>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">函数的定义和调用</p>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-c"><code class="language-c">[函数类型说明符] 函数名([形式参数声明列表]){\n\t函数体\n}\n</code></pre>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">函数声明:`类型说明符 函数名(形参表);`</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">函数调用:`函数名(实参列表);`</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">可以不在主调函数中对被调函数进行声明</p>\n<p>被调函数写在主调函数的前面<br>\n函数的返回值为整型或字符型<br>\n在所有函数定义之前,在源程序文件的开头<br>\n对库函数的调用有<code>include</code>不需要声明<br></p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">3种函数调用</p>函数表达式<br>\n函数语句<br>\n函数作为实参<br>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">函数的参数传递和返回值</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">实参的值传递给形参，是一个单向传递的过程</p>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">函数的嵌套调用</p>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">函数的递归调用</p>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">变量的作用域及存储类别</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">存储空间分为三部分</p>程序区:可执行的机器指令；<br>\n静态存储区:需要占用固定存储单元的变量；<br>\n动态存储区:不需要占用固定存储单元的变量<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">变量</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">变量的数据类型，如int，char，float等</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">变量的作用域</p>局部变量<br>\n全局变量<br>\n定义点之前的函数需要引用这些全局变量<br>\nextern 数据类型 全局变量[,全局变量2…];<br>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">变量的存储类型:不同的存储方法影响变量值的存在时间</p>静态存储:全局变量，静态变量<br>\n动态存储:自动变量和寄存器变量<br>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">四种存储类别</p>auto：自动变量-局部变量<br>\nauto int a,b=5;(auto可以省略)<br>\nstatic：静态变量<br>\n静态局部变量+静态全局变量<br>\nextern：外部变量<br>\n在一个文件中要引用其他文件中定义的全局变量<br>\nregister：寄存器变量<br>\n变量存放在CPU的寄存器中,使用时不需要访问内存,而是直接从寄存器中读写<br>\n循环次数较多的循环控制变量及循环体内反复使用的变量<br>'}]}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">内部函数及外部函数</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">这些函数能否被其他源文件调用</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">内部函数又称静态函数</p>static 函数类型标识符 函数名(形参)<br>\n在不同的文件中有同名的内部函数，则互不干扰<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">外部函数</p>extern 类型说明符 函数名(形参表)<br>\nextern void output_char( char a)<br>\n在定义函数时省略了extern，则默认为外部函数。本书前面所用的函数都是外部函数。<br>'}]}]})</script></body>
+</html>
