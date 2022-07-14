@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="http://zhao-study.gitee.io/code_html/tools/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.7"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/index.umd.min.js"></script><script>(r => {
+                setTimeout(r);
+              })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"root","d":0,"v":"","c":[{"t":"heading","d":1,"p":{"lines":[0,1]},"v":"<a href=\"https://cd3e7135.wiz06.com/wapp/pages/view/share/s/3dfD4R2L0ATp2nAPoW2rL2tF09Qm5p1J8AvG28CNoz0MugWr\">1访问控制列表基础知识</a>","c":[{"t":"heading","d":2,"p":{"lines":[1,2]},"v":"（一）认识访问控制列表"},{"t":"heading","d":2,"p":{"lines":[2,3]},"v":"（二）访问控制列表的匹配过程"},{"t":"heading","d":2,"p":{"lines":[3,4]},"v":"（三）访问控制列表应用的一般规则","c":[{"t":"heading","d":3,"p":{"lines":[4,5]},"v":"1．“3P”原则"},{"t":"heading","d":3,"p":{"lines":[5,6]},"v":"2．语句顺序决定了对数据的控制顺序"},{"t":"heading","d":3,"p":{"lines":[6,7]},"v":"3．至少有一条允许（Permit）语句"},{"t":"heading","d":3,"p":{"lines":[7,8]},"v":"4．最有限制性的语句应该放在ACL的靠前位置"}]}]},{"t":"heading","d":1,"p":{"lines":[9,10]},"v":"<a href=\"https://cd3e7135.wiz06.com/wapp/pages/view/share/s/3dfD4R2L0ATp2nAPoW2rL2tF2yl0PV14xQVz2SrCUU1q9Phw\">2标准ACL</a>","c":[{"t":"heading","d":2,"p":{"lines":[10,11]},"v":"（一）标准ACL的基本命令","c":[{"t":"heading","d":3,"p":{"lines":[11,12]},"v":"1．标准ACL的匹配条件命令"},{"t":"heading","d":3,"p":{"lines":[12,13]},"v":"2．端口绑定命令"},{"t":"heading","d":3,"p":{"lines":[13,14]},"v":"3．删除ACL"}]},{"t":"heading","d":2,"p":{"lines":[14,15]},"v":"（二）标准ACL配置实例"},{"t":"heading","d":2,"p":{"lines":[15,16]},"v":"（三）标准ACL的放置位置","c":[{"t":"heading","d":3,"p":{"lines":[16,17]},"v":"1．将ACL放在靠近源的位置"},{"t":"heading","d":3,"p":{"lines":[17,18]},"v":"2．将ACL放在靠近目标的位置"}]}]},{"t":"heading","d":1,"p":{"lines":[19,20]},"v":"<a href=\"https://cd3e7135.wiz06.com/wapp/pages/view/share/s/3dfD4R2L0ATp2nAPoW2rL2tF1pL-Si1Xvkdk2O5_EQ1V9Sbm\">3扩展ACL</a>","c":[{"t":"heading","d":2,"p":{"lines":[20,21]},"v":"（一）扩展ACL的基本命令","c":[{"t":"heading","d":3,"p":{"lines":[21,22]},"v":"1．扩展ACL的匹配条件命令"},{"t":"heading","d":3,"p":{"lines":[22,23]},"v":"2．端口绑定命令"}]},{"t":"heading","d":2,"p":{"lines":[23,24]},"v":"（二）扩展ACL配置实例"},{"t":"heading","d":2,"p":{"lines":[24,25]},"v":"（三）扩展ACL的放置位置"}]},{"t":"heading","d":1,"p":{"lines":[26,27]},"v":"<a href=\"https://cd3e7135.wiz06.com/wapp/pages/view/share/s/3dfD4R2L0ATp2nAPoW2rL2tF3mxtc629fkGA26vd0h1JZ7YT\">4限制用户对内网服务器的访问</a>","c":[{"t":"heading","d":2,"p":{"lines":[27,28]},"v":"任务描述"},{"t":"heading","d":2,"p":{"lines":[28,29]},"v":"任务步骤"}]}],"p":{}})</script>
+</body>
+</html>

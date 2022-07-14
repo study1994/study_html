@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="http://zhao-study.gitee.io/code_html/tools/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.7"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/index.umd.min.js"></script><script>(r => {
+                setTimeout(r);
+              })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"root","d":0,"v":"","c":[{"t":"heading","d":1,"p":{"lines":[0,1]},"v":"1规范化问题的提出","c":[{"t":"heading","d":2,"p":{"lines":[1,2]},"v":"1规范化理论"},{"t":"heading","d":2,"p":{"lines":[2,3]},"v":"2规范化理论的重要性","c":[{"t":"heading","d":3,"p":{"lines":[3,4]},"v":"01不合理的关系模式存在的问题"}]}]},{"t":"heading","d":1,"p":{"lines":[5,6]},"v":"2函数依赖概述","c":[{"t":"heading","d":2,"p":{"lines":[6,7]},"v":"1函数依赖的定义"},{"t":"heading","d":2,"p":{"lines":[7,8]},"v":"2函数依赖的逻辑蕴含及推理规则","c":[{"t":"heading","d":3,"p":{"lines":[8,9]},"v":"01逻辑蕴含的定义"},{"t":"heading","d":3,"p":{"lines":[9,10]},"v":"02Armstrong公理及推论"}]},{"t":"heading","d":2,"p":{"lines":[10,11]},"v":"3函数依赖的类型","c":[{"t":"heading","d":3,"p":{"lines":[11,12]},"v":"01完全函数依赖"},{"t":"heading","d":3,"p":{"lines":[12,13]},"v":"02部分函数依赖"},{"t":"heading","d":3,"p":{"lines":[13,14]},"v":"03传递函数依赖"}]},{"t":"heading","d":2,"p":{"lines":[14,15]},"v":"4属性集的闭包及其算法","c":[{"t":"heading","d":3,"p":{"lines":[15,16]},"v":"01属性集的闭包"},{"t":"heading","d":3,"p":{"lines":[16,17]},"v":"02属性集闭包算法"}]},{"t":"heading","d":2,"p":{"lines":[17,18]},"v":"5最小函数依赖集","c":[{"t":"heading","d":3,"p":{"lines":[18,19]},"v":"01函数依赖集的相关概念"},{"t":"heading","d":3,"p":{"lines":[19,20]},"v":"02计算最小函数依赖的算法"}]},{"t":"heading","d":2,"p":{"lines":[20,21]},"v":"6候选码的求解","c":[{"t":"heading","d":3,"p":{"lines":[21,22]},"v":"01候选码"},{"t":"heading","d":3,"p":{"lines":[22,23]},"v":"02快速求解候选码"},{"t":"heading","d":3,"p":{"lines":[23,24]},"v":"03多属性函数依赖集候选码求解"}]}]},{"t":"heading","d":1,"p":{"lines":[25,26]},"v":"3范式","c":[{"t":"heading","d":2,"p":{"lines":[26,27]},"v":"1第一范式"},{"t":"heading","d":2,"p":{"lines":[27,28]},"v":"2第二范式"},{"t":"heading","d":2,"p":{"lines":[28,29]},"v":"3第三范式"},{"t":"heading","d":2,"p":{"lines":[29,30]},"v":"4BC范式"},{"t":"heading","d":2,"p":{"lines":[30,31]},"v":"5多值依赖与第四范式","c":[{"t":"heading","d":3,"p":{"lines":[31,32]},"v":"01多值依赖"},{"t":"heading","d":3,"p":{"lines":[32,33]},"v":"02第四范式"}]}]},{"t":"heading","d":1,"p":{"lines":[34,35]},"v":"4关系模式的规范化","c":[{"t":"heading","d":2,"p":{"lines":[35,36]},"v":"1关系模式规范化的目的和原则"},{"t":"heading","d":2,"p":{"lines":[36,37]},"v":"2关系模式规范化的步骤"},{"t":"heading","d":2,"p":{"lines":[37,38]},"v":"3关键模式规范化的要求"}]}],"p":{}})</script>
+</body>
+</html>

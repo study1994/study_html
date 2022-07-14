@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="http://zhao-study.gitee.io/code_html/tools/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.7"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/index.umd.min.js"></script><script>(r => {
+                setTimeout(r);
+              })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"root","d":0,"v":"","c":[{"t":"heading","d":1,"p":{"lines":[0,1]},"v":"认识数据库","c":[{"t":"heading","d":2,"p":{"lines":[1,2]},"v":"信息=数据+语义"},{"t":"heading","d":2,"p":{"lines":[2,3]},"v":"数据处理-核心(数据管理)"},{"t":"heading","d":2,"p":{"lines":[3,4]},"v":"数据库(DataBase-DB)"},{"t":"heading","d":2,"p":{"lines":[4,5]},"v":"数据库管理系统(DataBase Management System，DBMS)-系统软件","c":[{"t":"heading","d":3,"p":{"lines":[5,6]},"v":"SQL Server"},{"t":"heading","d":3,"p":{"lines":[6,7]},"v":"Oracle"},{"t":"heading","d":3,"p":{"lines":[7,8]},"v":"MySql"},{"t":"heading","d":3,"p":{"lines":[8,9]},"v":"Access"}]},{"t":"heading","d":2,"p":{"lines":[9,10]},"v":"数据库系统(DataBase System，DBS)-数据库","c":[{"t":"heading","d":3,"p":{"lines":[10,11]},"v":"数据库"},{"t":"heading","d":3,"p":{"lines":[11,12]},"v":"数据库用户"},{"t":"heading","d":3,"p":{"lines":[12,13]},"v":"计算机硬件系统"},{"t":"heading","d":3,"p":{"lines":[13,14]},"v":"计算机软件系统"}]},{"t":"heading","d":2,"p":{"lines":[14,15]},"v":"发展阶段(人工管理-&gt;文件系统-&gt;数据库系统)"}]},{"t":"heading","d":1,"p":{"lines":[15,16]},"v":"数据模型","c":[{"t":"heading","d":2,"p":{"lines":[16,17]},"v":"现实世界、信息世界、计算机世界"},{"t":"heading","d":2,"p":{"lines":[17,18]},"v":"现实世界两级抽象的结果,对现实世界数据特征的抽象描述"},{"t":"heading","d":2,"p":{"lines":[18,19]},"v":"组成要素","c":[{"t":"heading","d":3,"p":{"lines":[19,20]},"v":"数据结构"},{"t":"heading","d":3,"p":{"lines":[20,21]},"v":"数据操作"},{"t":"heading","d":3,"p":{"lines":[21,22]},"v":"数据完整性约束"}]},{"t":"heading","d":2,"p":{"lines":[22,23]},"v":"类型","c":[{"t":"heading","d":3,"p":{"lines":[23,24]},"v":"概念模型-对现实世界的事物及其联系的第一级抽象","c":[{"t":"heading","d":4,"p":{"lines":[24,25]},"v":"实体(Entity)"},{"t":"heading","d":4,"p":{"lines":[25,26]},"v":"属性(Attribute)：一个实体多个属性"},{"t":"heading","d":4,"p":{"lines":[26,27]},"v":"实体型(Entity Type)：实体名及其属性名集合来抽象描述同类实体"},{"t":"heading","d":4,"p":{"lines":[27,28]},"v":"实体集(Entity Set)：同型实体的集合称为实体集"},{"t":"heading","d":4,"p":{"lines":[28,29]},"v":"码(Key)(键、关键字)：唯一标识一个实体的属性或属性集称为实体的码"},{"t":"heading","d":4,"p":{"lines":[29,30]},"v":"域(Domain)：某一属性的取值范围称为该属性的域。"},{"t":"heading","d":4,"p":{"lines":[30,31]},"v":"联系(Relationship)：现实世界中的联系同样也要抽象和反映到信息世界中来。","c":[{"t":"heading","d":5,"p":{"lines":[31,32]},"v":"一对一"},{"t":"heading","d":5,"p":{"lines":[32,33]},"v":"一对多"},{"t":"heading","d":5,"p":{"lines":[33,34]},"v":"多对多"}]},{"t":"heading","d":4,"p":{"lines":[34,35]},"v":"表示方法：实体-联系方法(Entity-Relationship Approach)E-R图","c":[{"t":"heading","d":5,"p":{"lines":[35,36]},"v":"矩形表示实体，矩形内部写上实体名【客户/商品】"},{"t":"heading","d":5,"p":{"lines":[36,37]},"v":"椭圆形表示属性，内部写上属性名【商品编号/客户编号】"},{"t":"heading","d":5,"p":{"lines":[37,38]},"v":"菱形表示联系，内部写上联系名【订购】"}]}]},{"t":"heading","d":3,"p":{"lines":[38,39]},"v":"逻辑模型-对现实世界的第二级抽象","c":[{"t":"heading","d":4,"p":{"lines":[39,40]},"v":"层次模型-树形结构表示/自上而下"},{"t":"heading","d":4,"p":{"lines":[40,41]},"v":"网状模型"},{"t":"heading","d":4,"p":{"lines":[41,42]},"v":"关系模型"},{"t":"heading","d":4,"p":{"lines":[42,43]},"v":"面向对象模型"}]},{"t":"heading","d":3,"p":{"lines":[43,44]},"v":"物理模型"}]}]},{"t":"heading","d":1,"p":{"lines":[44,45]},"v":"数据库系统结构","c":[{"t":"heading","d":2,"p":{"lines":[45,46]},"v":"三级模式结构","c":[{"t":"heading","d":3,"p":{"lines":[46,47]},"v":"不同的层次和角度","c":[{"t":"heading","d":4,"p":{"lines":[47,48]},"v":"外部体系结构"},{"t":"heading","d":4,"p":{"lines":[48,49]},"v":"内部体系结构","c":[{"t":"heading","d":5,"p":{"lines":[49,50]},"v":"外模式-用户模式：是数据库用户的数据视图，用户可以根据系统所给的外模式，用查询语言或应用程序去操作部分数据"},{"t":"heading","d":5,"p":{"lines":[50,51]},"v":"模式-概念模式：一个数据库只有一个模式,是数据的逻辑表示,描述数据库中存储的具体数据及其之间存在的联系"},{"t":"heading","d":5,"p":{"lines":[51,52]},"v":"内模式-物理模式：对数据库存储结构的描述，是数据在数据库内部的表达方式"}]}]}]},{"t":"heading","d":2,"p":{"lines":[52,53]},"v":"二级映像","c":[{"t":"heading","d":3,"p":{"lines":[53,54]},"v":"外模式/模式映像："},{"t":"heading","d":3,"p":{"lines":[54,55]},"v":"模式/内模式映像："}]}]},{"t":"heading","d":1,"p":{"lines":[55,56]},"v":"数据库领域新技术","c":[{"t":"heading","d":2,"p":{"lines":[56,57]},"v":"云数据库和分布式数据库","c":[{"t":"heading","d":3,"p":{"lines":[57,58]},"v":"云数据库"},{"t":"heading","d":3,"p":{"lines":[58,59]},"v":"分布式数据库"}]},{"t":"heading","d":2,"p":{"lines":[59,60]},"v":"大数据与主动数据库","c":[{"t":"heading","d":3,"p":{"lines":[60,61]},"v":"大数据"},{"t":"heading","d":3,"p":{"lines":[61,62]},"v":"主动数据库"}]},{"t":"heading","d":2,"p":{"lines":[62,63]},"v":"数据仓库与数据挖掘","c":[{"t":"heading","d":3,"p":{"lines":[63,64]},"v":"数据仓库"},{"t":"heading","d":3,"p":{"lines":[64,65]},"v":"数据挖掘"}]}]}],"p":{}})</script>
+</body>
+</html>
