@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="http://zhao-study.gitee.io/code_html/tools/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.7"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/index.umd.min.js"></script><script>(r => {
+                setTimeout(r);
+              })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"root","d":0,"v":"","c":[{"t":"heading","d":1,"p":{"lines":[0,1]},"v":"功能：为网络层提供服务、链路管理、帧定界、帧同步与透明传输、流量控制和差错控制"},{"t":"heading","d":1,"p":{"lines":[1,2]},"v":"组帧","c":[{"t":"heading","d":2,"p":{"lines":[2,3]},"v":"字符计数法：在帧头部使用一个计数字段来标明帧内字符数"},{"t":"heading","d":2,"p":{"lines":[3,4]},"v":"首尾定界法","c":[{"t":"list_item","d":4,"p":{"lines":[4,5]},"v":"概念：使用特定字符或比特模式定结帧的开始和结束"},{"t":"list_item","d":4,"p":{"lines":[5,6]},"v":"字符填充：在数据中的特殊字符前面用转义字符填充"},{"t":"list_item","d":4,"p":{"lines":[6,7]},"v":"比特填充，数据区每遇到连续5个1就填充一个"}]},{"t":"heading","d":2,"p":{"lines":[7,8]},"v":"违规编码法：信号传输过程中采用违规的编码来表示帧的起始和终止"}]},{"t":"heading","d":1,"p":{"lines":[8,9]},"v":"差错控制","c":[{"t":"list_item","d":3,"p":{"lines":[9,10]},"v":"检错编码：奇偶校验码、循环冗余码"},{"t":"list_item","d":3,"p":{"lines":[10,11]},"v":"纠错编码：海明码"}]},{"t":"heading","d":1,"p":{"lines":[11,12]},"v":"可靠传输：数据链路层通常使用确认和超时重传两种机制来保证可靠传输"},{"t":"heading","d":1,"p":{"lines":[12,13]},"v":"流量控制","c":[{"t":"heading","d":2,"p":{"lines":[13,14]},"v":"停止等待协议：发送方每发送一帧都要等待接收方的应答信号才能发送下一帧流量控制"},{"t":"heading","d":2,"p":{"lines":[14,15]},"v":"后退N帧协议：发送方一次可发送N帧，按序接收，重传从最后一个确认开始"},{"t":"heading","d":2,"p":{"lines":[15,16]},"v":"选择重传协议：发送方一次可发送N帧，可以不按序接收，重传没有确认的帧"}]},{"t":"heading","d":1,"p":{"lines":[16,17]},"v":"介质访问","c":[{"t":"heading","d":2,"p":{"lines":[17,18]},"v":"信道划分","c":[{"t":"list_item","d":4,"p":{"lines":[18,19]},"v":"频分复用：将多路信号调制到不同频率载波上叠加形成一个复合信号"},{"t":"list_item","d":4,"p":{"lines":[19,20]},"v":"时分复用：将物理信道按时间分为若干时间片，轮流给不同信号使用"},{"t":"list_item","d":4,"p":{"lines":[20,21]},"v":"波分复用：在一根光纤中传输多种不同波长（频率）的光信号"},{"t":"list_item","d":4,"p":{"lines":[21,22]},"v":"码分复用：靠不同的编码来区分各路原始信号，例如CDMA技术"}]},{"t":"heading","d":2,"p":{"lines":[22,23]},"v":"随机访问","c":[{"t":"heading","d":3,"p":{"lines":[23,24]},"v":"ALOHA协议","c":[{"t":"list_item","d":5,"p":{"lines":[24,25]},"v":"纯ALOHA：不检测直接发送，若无确认则等待重发"},{"t":"list_item","d":5,"p":{"lines":[25,26]},"v":"时隙ALOHA：将时间划分为若干等长时隙，按时发送"}]},{"t":"heading","d":3,"p":{"lines":[26,27]},"v":"CSMA协议","c":[{"t":"list_item","d":5,"p":{"lines":[27,28]},"v":"1-坚持：闲则发送，忙则继续监听"},{"t":"list_item","d":5,"p":{"lines":[28,29]},"v":"非坚持：闲则发送，忙则等待一个随机时间再听"},{"t":"list_item","d":5,"p":{"lines":[29,30]},"v":"p-坚持：闲则以概率p发送，1-p等待下一个时隙，忙则等待一个随机时间再听"}]},{"t":"heading","d":3,"p":{"lines":[30,31]},"v":"CSMA/CD协议","c":[{"t":"list_item","d":5,"p":{"lines":[31,32]},"v":"流程：先听后发，边听边发，冲突停发，随机重发"},{"t":"list_item","d":5,"p":{"lines":[32,33]},"v":"碰撞解决：采用二进制指发退避算法来解决碰撞问题"}]},{"t":"heading","d":3,"p":{"lines":[33,34]},"v":"CSMV/CA协议","c":[{"t":"list_item","d":5,"p":{"lines":[34,35]},"v":"避免碰撞：预约信道、ACK帧、RTS/CTS帧"},{"t":"list_item","d":5,"p":{"lines":[35,36]},"v":"解决碰撞：采用二进制指数退避算法来解决碰撞问题"}]}]},{"t":"heading","d":2,"p":{"lines":[36,37]},"v":"轮询访问：令牌传递协议，只有得到令牌的机器才能发送数据，其他必须等待"}]},{"t":"heading","d":1,"p":{"lines":[37,38]},"v":"局域网：在一个较小地理范围内，将各种计算机等设备通过双绞线等介质连接"},{"t":"heading","d":1,"p":{"lines":[38,39]},"v":"广城网","c":[{"t":"list_item","d":3,"p":{"lines":[39,40]},"v":"PPP协议：面向字节，采用字节填充方式，只支持全双工链路"},{"t":"list_item","d":3,"p":{"lines":[40,41]},"v":"HDLC协议：面向比特，采用0比特插入法，赖类分为信息帧、监督顿和无编号帧"}]},{"t":"heading","d":1,"p":{"lines":[41,42]},"v":"设备","c":[{"t":"heading","d":2,"p":{"lines":[42,43]},"v":"网桥","c":[{"t":"bullet_list","d":3,"p":{"lines":[43,44]},"v":"","c":[{"t":"list_item","d":4,"p":{"lines":[43,44]},"v":"特点：把两个或多个以太网通过网桥连接起来变成一个网段"}]},{"t":"heading","d":3,"p":{"lines":[44,45]},"v":"类型","c":[{"t":"list_item","d":5,"p":{"lines":[45,46]},"v":"透明网桥：按照自学习算法填写转发表，按转发表转发"},{"t":"list_item","d":5,"p":{"lines":[46,47]},"v":"源路由网桥：先发送发现帧，按返回结果转发"}]}]},{"t":"heading","d":2,"p":{"lines":[47,48]},"v":"交换机","c":[{"t":"bullet_list","d":3,"p":{"lines":[48,49]},"v":"","c":[{"t":"list_item","d":4,"p":{"lines":[48,49]},"v":"特点：实际就是一个多端口网桥"}]},{"t":"heading","d":3,"p":{"lines":[49,50]},"v":"交换方式","c":[{"t":"list_item","d":5,"p":{"lines":[50,51]},"v":"直通式：帧在接收后只检查目的地址，几乎能马上就被传出去"},{"t":"list_item","d":5,"p":{"lines":[51,52]},"v":"存储转发，先将接收到的帧缓存到高速缓存器，检查数据正确性"}]}]},{"t":"heading","d":2,"p":{"lines":[52,53]},"v":"相同点：按MAC地址转发，都能隔离冲突域，不能隔离广播域"}]}],"p":{}})</script>
+</body>
+</html>

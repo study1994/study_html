@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="http://zhao-study.gitee.io/code_html/tools/d3@6.7.0"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.2.7"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.2.0/dist/index.umd.min.js"></script><script>(r => {
+                setTimeout(r);
+              })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, data) => {
+        const {
+          Markmap
+        } = getMarkmap();
+        window.mm = Markmap.create('svg#mindmap', getOptions == null ? void 0 : getOptions(), data);
+      })(() => window.markmap,null,{"t":"root","d":0,"v":"","c":[{"t":"heading","d":1,"p":{"lines":[0,1]},"v":"视图","c":[{"t":"heading","d":2,"p":{"lines":[1,2]},"v":"1视图概述","c":[{"t":"heading","d":3,"p":{"lines":[2,3]},"v":"01视图"},{"t":"heading","d":3,"p":{"lines":[3,4]},"v":"02视图的优点与作用"}]},{"t":"heading","d":2,"p":{"lines":[4,5]},"v":"2创建与删除视图","c":[{"t":"heading","d":3,"p":{"lines":[5,6]},"v":"01用SQL命令创建视图","c":[{"t":"list_item","d":5,"p":{"lines":[6,10]},"v":"CREATE VIEW&lt;视图名&gt;[(列名)]<br>\n[WITH[ENCRYPTION][,SCHEMABINDING][,VIEW_METADATA]]<br>\nAS &lt;SELECT语句&gt;<br>\n[WITH CHECK OPTION]"},{"t":"list_item","d":5,"p":{"lines":[10,12]},"v":"创建一个计算机系教师信息的视图V_T,其中包括教师号、教师姓名及职称[TNo,TN,Prof,Dept]<br>\nCREATE VIEW V_T AS SELECT TNo,TN,Prof FROM T WHERE Dept='计算机'"},{"t":"list_item","d":5,"p":{"lines":[12,14]},"v":"创建一个学生平均成绩的视图V_SAVG，其中包括学号和平均成绩[SNo,Grade]<br>\nCREATE VIEW V_SAVG(SNo,AVGGrade) AS SELECT SNo,AVG(Grade) FROM SC Group BY Sno"}]},{"t":"heading","d":3,"p":{"lines":[14,15]},"v":"02用SSMS创建视图"},{"t":"heading","d":3,"p":{"lines":[15,16]},"v":"03用SQL命令删除视图","c":[{"t":"list_item","d":5,"p":{"lines":[16,18]},"v":"DROP VIEW &lt;视图名&gt;<br>\n<code>DROP VIEW V_T</code>"}]},{"t":"heading","d":3,"p":{"lines":[18,19]},"v":"04用SSMS删除视图"}]},{"t":"heading","d":2,"p":{"lines":[19,20]},"v":"3修改与更新视图","c":[{"t":"heading","d":3,"p":{"lines":[20,21]},"v":"01用SQL命令修改视图","c":[{"t":"list_item","d":5,"p":{"lines":[21,22]},"v":"ALTER VIEW &lt;视图名&gt;[(列名)] AS &lt;SELECT语句&gt;"},{"t":"list_item","d":5,"p":{"lines":[22,24]},"v":"修改学生平均成绩视图V_SAVG，在其中添加学生名称字段[SNo,SN,Grade]<br>\n<code>ALTER VIEW V_SAVG(SNo,SN,AVGGrade) AS SELECT S.SNo,SN,AVG(Grade) FROM S JOIN SC ON S.SNo=SC.SNo GROUP BY S.SNo,SN</code>"}]},{"t":"heading","d":3,"p":{"lines":[24,25]},"v":"02用SSMS修改视图"},{"t":"heading","d":3,"p":{"lines":[25,26]},"v":"03用SQL命令更新视图","c":[{"t":"list_item","d":5,"p":{"lines":[26,28]},"v":"向视图V_S插入一条记录(12004,吴艮,女)[SNo,SN,Sex]<br>\n<code>INSERT INTO V_S(SNo,SN,Sex) VALUES ('12004','吴艮','女')</code>"},{"t":"list_item","d":5,"p":{"lines":[28,30]},"v":"将视图V_S中的学生“吴艮”的性别改为“男”[SEX,SN]<br>\n<code>UPDATE V_S SET SEX='男' WHERE SN='吴艮'</code>"},{"t":"list_item","d":5,"p":{"lines":[30,32]},"v":"删除视图V_S中同学“吴艮”的记录[SN]<br>\n<code>DELETE FROM V_S WHERE SN='吴艮'</code>"}]},{"t":"heading","d":3,"p":{"lines":[32,33]},"v":"04用SSMS更新视图","c":[{"t":"list_item","d":5,"p":{"lines":[33,35]},"v":"在视图 V_SAVG 中查询学生“冯明”的信息[SN]<br>\n<code>SELECT * FROM V_SAVG WHERE SN='冯明'</code>"},{"t":"list_item","d":5,"p":{"lines":[35,36]},"v":"SELECT S.SNo,SN,AVG(Grade) AS AVGGrade FROM S,SC WHERE SN='冯明' AND S.SNo=SC.SNo GROUP BY S.SNo,SN"}]}]}]},{"t":"heading","d":1,"p":{"lines":[37,38]},"v":"索引","c":[{"t":"heading","d":2,"p":{"lines":[38,39]},"v":"1索引概述","c":[{"t":"heading","d":3,"p":{"lines":[39,40]},"v":"01索引"},{"t":"heading","d":3,"p":{"lines":[40,41]},"v":"02索引的特点"},{"t":"heading","d":3,"p":{"lines":[41,42]},"v":"03设计索引的注意事项"}]},{"t":"heading","d":2,"p":{"lines":[42,43]},"v":"2索引的类型","c":[{"t":"heading","d":3,"p":{"lines":[43,44]},"v":"01聚集索引"},{"t":"heading","d":3,"p":{"lines":[44,45]},"v":"02非聚集索引"},{"t":"heading","d":3,"p":{"lines":[45,46]},"v":"03其他索引"}]},{"t":"heading","d":2,"p":{"lines":[46,47]},"v":"3创建与删除索引","c":[{"t":"heading","d":3,"p":{"lines":[47,48]},"v":"01用SQL命令创建索引","c":[{"t":"list_item","d":5,"p":{"lines":[48,51]},"v":"CREATE[UNIQUE][CLUSTERED|NONCLUSTERED]INDEX &lt;索引名&gt;<br>\nON &lt;表名或视图名&gt; (&lt;列名&gt;[ASC|DESC] [,…N])<br>\n[WITH &lt;索引选项&gt;[,…N]]"},{"t":"list_item","d":5,"p":{"lines":[51,53]},"v":"为数据表SC在SNo和CNo两列上建立名为SC_I的唯一索引<br>\n<code>CREATE UNIQUE INDEX SC_I ON SC(SNo,CNo)</code>"},{"t":"list_item","d":5,"p":{"lines":[53,55]},"v":"为数据表T在TN列上建立名为<code>T_I</code>的非聚集索引<br>\nCREATE NONCLUSTERED INDEX T_I ON T(TN)"}]},{"t":"heading","d":3,"p":{"lines":[55,56]},"v":"02用SSMS创建索引"},{"t":"heading","d":3,"p":{"lines":[56,57]},"v":"03用SQL命令删除索引","c":[{"t":"list_item","d":5,"p":{"lines":[57,61]},"v":"DROP INDEX &lt;数据表或视图.索引名&gt;<br>\nDROP INDEX &lt;索引名&gt; ON &lt;数据表或视图&gt;<br>\n删除索引T_I<br>\nDROP INDEX T_I ON T"}]},{"t":"heading","d":3,"p":{"lines":[61,62]},"v":"04用SSMS删除索引"}]},{"t":"heading","d":2,"p":{"lines":[62,63]},"v":"4修改与查看索引","c":[{"t":"heading","d":3,"p":{"lines":[63,64]},"v":"01用SQL命令修改索引","c":[{"t":"list_item","d":5,"p":{"lines":[64,68]},"v":"修改索引名称<br>\nEXEC sp_rename &lt;'表名或视图名.索引名'&gt;,&lt;'新索引名'&gt;<br>\n将数据表SC的索引SC_I改名为SC_I1<br>\nEXEC sp_rename 'SC.SC_I','SC_I1'"}]},{"t":"heading","d":3,"p":{"lines":[68,69]},"v":"02用SSMS修改索引"},{"t":"heading","d":3,"p":{"lines":[69,70]},"v":"03用SQL命令查看索引","c":[{"t":"list_item","d":5,"p":{"lines":[70,72]},"v":"查看数据表SC的索引<br>\nEXEC sp_helpindex SC"}]},{"t":"heading","d":3,"p":{"lines":[72,73]},"v":"04用SSMS查看索引"}]}]}],"p":{}})</script>
+</body>
+</html>
