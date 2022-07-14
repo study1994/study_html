@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>训练过程</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '训练图片', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/detectors/bevf_faster_rcnn.py:class BEVF_FasterRCNN:def extract_feat</p>img_feats=[torch.Size([12, 256, 112, 200])]<br>\npts_feats=None<br>\nimg_feats_view.shape=torch.Size([2, 6, 256, 112, 200])<br>\nrots.shape=torch.Size([2, 6, 3, 3])<br>\ntrans.shape=torch.Size([2, 6, 3])<br>\nlidar2img_rt[0].shape=(4, 4);len(lidar2img_rt)=6<br>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/detectors/cam_stream_lss.py</p>\n<p>(1)先生成在3D坐标系的堆体self.frustum.shape=torch.Size([41, , 3]);D表示4-45米范围内以1米为间隔的距离，也就是 D=41，<br>\n这样的话Ｄ上每个位置就代表了该像素处于这个深度范围的概率值;(112,200)为变小后的图片大小<br>\n参数：self.final_dim=(900, 1600)；self.fH, self.fW=(112, 200)；self.grid_conf[\'dbound\']=[4.0, 45.0, 1.0]<br>\n(2)geom.shape=torch.Size([2, 6, 41, 112, 200, 3])映射雷达坐坐标系上<code>cam_to_ego</code><br>\n<code>--------------------------------------------</code><br>\n(3)上面输入图片特征torch.Size([12, 256, 112, 200])经过CamEncode<br>\n参数self.D=41；self.C=64,inputC=256,得到x.shape=torch.Size([12, 64, 41, 112, 200]);depth.shape=torch.Size([12, 41, 112, 200])<br>\n过程<code>def get_depth_feat(self, x)</code>:x-&gt;torch.Size([12, 105, 112, 200])前41维度代表深度，后64维度代表像素点特征.<br>\ndepth.unsqueeze(1).shape=torch.Size([12, 1, 41, 112, 200])+x[:, self.D:(self.D + self.C)].unsqueeze(2).shape=torch.Size([12, 64, 1, 112, 200])<br>\n相乘得到new_x，与depth返回<br>\n(4)经过函数<code>def get_cam_feats(self, x)</code>得到x.shape=torch.Size([2, 6, 41, 112, 200, 64]);depth.shape=;torch.Size([2, 6, 41, 112, 200])<br>\n【主要过程是上面第3步】<br>\n<code>================</code><br>\ndx, bx, nx = gen_dx_bx(self.grid_conf[\'xbound\'],               # [-50, 50, 0.5]<br>\nself.grid_conf[\'ybound\'],               # [-50, 50, 0.5]<br>\nself.grid_conf[\'zbound\'], )             # [-5, 3, 0.5]<br>\ndxtensor([0.5000, 0.5000, 0.5000]);bx=tensor([-49.7500, -49.7500,  -4.7500]); nx=tensor([200, 200,  16])<br>\n<code>================</code><br>\n(5)<code>def voxel_pooling</code>视锥点云和图像特征的空间尺度是等大的，也就是位置有着一一对应的关系，视锥点云转换到bev下后，每个点都会被分配到bev的柱子里面，<br>\n这个柱子就是bev空间每个grid都对应一个[dx,dy,无限高]的立方体，这样每一个grid的特征就是在里面所有点对应的图像特征求和来表示的<br>\n(B,N,D,H,W,C)=(2, 6, 41, 112, 200, 64); Nprime=11020800<br>\ngeom_feats.shape=torch.Size([2, 6, 41, 112, 200, 3])-&gt;torch.Size([2, 6, 41, 112, 200, 3])-&gt;torch.Size([11020800, 3])<br>\nbatch_ix-&gt;torch.Size([11020800, 1])<br>\nself.nx=tensor([180, 180,  13], device=\'cuda:0\')<br>\nsort之后：<br>\nx.shape=torch.Size([5918319, 64]); geom_feats.shape=torch.Size([5918319, 4]); ranks.shape=torch.Size([5918319]);<br>\n<code>--------------------------------------------</code><br>\n<code>mmdet3d/models/detectors/cam_stream_lss.py</code>:<code>class QuickCumsum</code><br>\nx.shape=torch.Size([5918319, 64])<br>\n<code>mmdet3d/models/detectors/cam_stream_lss.py</code><br>\nfinal-&gt;torch.Size([2, 64, 13, 180, 180])<br>\n<code>def forward</code>最后过程<br>\nx.shape=torch.Size([2, 64, 13, 180, 180])-&gt;bev.shape=bev.shape=torch.Size([2, 832, 180, 180])-&gt;torch.Size([2, 256, 180, 180])<br>\ndepth.shape=torch.Size([2, 6, 41, 112, 200])<br>\n<code>mmdet3d/models/detectors/bevf_faster_rcnn.py</code>:<code>class BEVF_FasterRCNN:def extract_feat</code><br></p>'}]}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">点云图像融合</p>就是上面的x.shape=torch.Size([2, 256, 180, 180])+<br>\npts_feats = [self.reduc_conv(torch.cat([img_bev_feat, pts_feats[0]], dim=1))]<br>'}]})</script></body>
+</html>
