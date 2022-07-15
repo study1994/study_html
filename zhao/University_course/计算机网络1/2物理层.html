@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>2物理层</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">通信基础</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">《数据通信基础知识》</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">基本术语：信息、数据、信号</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">主要技术指标：数据传输速率、信号传输速率、信道容量、误码率、信道带宽、信道延迟</p>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">《传输方式》</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">模拟传输与数字传输</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">串行通信与并行通信</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">单工、半双工和全双工通信</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">同步传输与异步传输</p>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">信道</p>单工：只有一个方向的通信，而没有反方向的交互<br>\n半双工：通信双方都可以发送、接收信息，但不能同时发送接受<br>\n全双工：通信双方可以同时发送、接收信息<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">定理</p>奈氏准则：理想低通信道下的极限数据传输率`-2Wlog_2^v`<br>\n香农定理：信道的极限数据传输速率`Wlog_2^{(1+S/N)}`<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">调制与编码</p>调制：把数据变换为模拟信号的过程<br>\n编码：把数据变换为数字信号的过程<br>\n数字数据→数字信号：非归零码、曼彻斯特编码、差分曼彻斯特编码等<br>\n数字数据→模拟信号：幅移键控、频移键控、相移键控、正交振幅调制<br>\n模拟数据→数字信号：1.抽样2.量化3.编码<br>\n模拟数据一模拟信号：频分复用技术等<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">《数据编码技术》</p>调制：调幅(AM)、调频(FM)、调相(PM)<br>\n编码：采样、量化和编码<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">传输方式《数据交换技术》</p>电路交换：两结点之间建立一条专用的物理通信路径，传输期间一直独占<br>\n报文交换：无需建立专门连接，报文携带有目标地址等信息，采用存储转发方式<br>\n分组交换：把报文分割成小的数据块，加上必要的控制信息进行传输<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">分组交换</p>数据报：分组之间可能存在不同路径，各个分组分别转发<br>\n虚电路：在发送方和接收方建立一条逻辑上相连的虚电路，分组沿着虚电路传输<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">《多路复用技术》</p>频分多路复用<br>\n时分多路复用<br>\n波分多路复用<br>\n码分多路复用<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">《差错控制》</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">产生原因</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">控制方法</p>1反馈检测<br>\n2自动请求重发（ARQ）<br>\n3前向纠错（FEC）<br>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">控制编码</p>1奇偶校验码<br>\n2循环冗余码<br>\n3差错控制编码<br>'}]}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">传输介质《-》</p>无线：无线电波、微波、红外线和激光<br>\n有线：双绞线、同轴电缆、光纤<br>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">设备</p>中继器：将信号整形并放大再转发出去，消除信号的失真和衰减问题，具有5-4-3规则<br>\n集线器：实质上是一个大多端口中继器，对信号进行放大后发到其他所有端口<br>'}]})</script></body>
+</html>

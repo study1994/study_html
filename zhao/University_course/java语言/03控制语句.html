@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>03控制语句</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">导读</p>\n<p>Java程序由一个或多个<code>类</code>组成，每一个类由<code>域</code>(field)和<code>方法</code>(method)组成，而方法是由若干条<code>语句</code>组成的<br></p>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">控制语句</p>实现程序的控制转移<br>\n用同一方法反复迭代计算<br>\n顺序语句、选择语句、循环语句和转移语句<br>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">顺序结构</p>语句的执行顺序是按照语句在方法中的物理顺序而执行<br>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">选择结构</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">if语句</p>简单语法形式：if(条件表达式){语句}<br>\nif-else语句：if(条件表达式){语句1}else{语句2}<br>\n嵌套的if语句<br>\nif-else if：if(条件表达式1){语句1}else if(条件表达式2){语句2}else{语句n+1}<br>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">public class Test {\n   public static void main(String args[]){\n        int x = 30;\n        if( x == 10 ){\n            System.out.print("Value of X is 10");\n        }else if( x == 20 ){\n            System.out.print("Value of X is 20");\n        }else if( x == 30 ){\n            System.out.print("Value of X is 30");\n        }else{\n            System.out.print("这是 else 语句");\n        }\n   }\n}\n</code></pre>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">switch语句</p>\n<p>switch(表达式){<code>case 常量1：语句块1;break</code>;<code>case 常量2：语句块2;break</code>;<code>default：语句块n+1</code>;}<br></p>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">循环结构</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">while循环</p>while(条件表达式)语句(又称循环体)<br>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">public class Test {\n   public static void main(String[] args) {\n      int x = 10;\n      while( x < 20 ) {\n         System.out.print("value of x : " + x );\n         x++;\n         System.out.print("\\n");\n      }\n   }\n}\n</code></pre>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">do-while循环</p>do循环体while(条件表达式)；<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">for循环</p>for(表达式1；条件表达式；表达式2)循环体<br>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">选择结构与循环结构的嵌套</p>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">break语句与continue语句</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">基本的break语句`break`</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">带标号的break语句`break 标号；`</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">基本的continue语句`continue`</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">带标号的continue语句`continue 标号；`</p>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">小结</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">择结构可以用if、if-else和switch语句来实现。</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">循环结构有while、do-while和for。</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">可以用break语句或continue语句提前结束循环。</p>'}]}]})</script></body>
+</html>
