@@ -2,4 +2,4 @@
 git add *
 git commit -m "gitadd"
 git remote set-url origin https://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@github.com/study1994/study_html.git
-git push origin master
+git push origin main
