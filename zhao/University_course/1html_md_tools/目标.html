@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>目标</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">生活习惯</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">早睡</p>控制时间在10.30-07.20<br>\n1.弄完看下目标反思今天问题<br>\n2.然后依次看下手机APP，然后关掉<br>\n3.百度云盘看英文paper<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">身体锻炼：</p>1.平时7.40下班，30分钟跑步<br>\n2.周六日晚上跳30分钟：开合跳40、跨腿跳20、高抬腿20循环<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">早上：</p>1.烧水2，洗漱<br>\n2.煮面，准备好鸡蛋调料开水<br>\n3.喝开水，吃面<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">晚上：煮粥</p>1.刷牙、煮鸡蛋<br>\n2.将米洗净，同时煮水<br>\n2.煮开后，小火煮加盐<br>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">个人学习</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">leetcode</p>学习时间：<br>\n学习资料：<br>\n学习说明：<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">CV_Interview</p>学习时间：<br>\n学习资料：<br>\n学习说明：<br>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">结构化面试</p>学习时间：<br>\n学习资料：<br>\n学习说明：<br>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">课程学习</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">知识大纲</p>学习时间：早晚上班路上<br>\n学习资料：链接<br>\n学习说明：不足补充到便签<br>\n1.计网，2C语言，3java，4数据库+计应基础，5网络设备配置<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">说课</p>学习时间：周六日上午40分钟<br>\n学习资料：网上搜<br>\n学习说明：每门课整理四个说课主题<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">试讲</p>\n<p>学习时间：周六日上午40分钟<br>\n学习资料：<a href="https://weike.enetedu.com/">全国微课教学比赛</a><br>\n学习说明：每门课整理四个试讲主题<br></p>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">公共基础</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">制作知识导图</p>\n<p>学习时间：周六日上午1小时<br>\n学习资料：<a href="https://space.bilibili.com/488559452/video?tid=0&amp;page=1&amp;keyword=&amp;order=pubdate">B站</a><br>\n学习说明：<br></p>'}]}]})</script></body>
+</html>

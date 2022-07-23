@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>10集合_泛型_反射和标注</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">泛型</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">主要应用</p>泛型是通用类型的类，泛型类对象可以表示多种不同的类的对象<br>\n集合是多个离散的对象组成的单一的单元<br>\n在集合中的对象可以用泛型类的对象表示<br>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">声明泛型类</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">class 泛型类名<类型参数表列>{    // 定义-泛型类是带有类型参数的类\n    //类体\n}\n</code></pre>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">定义泛型类的对象</p>\n<p><code>泛型类名[&lt;实际类型表列&gt;] 对象名=new 泛型类名[&lt;实际类型表列&gt;]([形参表]);</code><br>\n<code>泛型类名[&lt;实际类型表列&gt;] 对象名=new 泛型类名[&lt;&gt;]([形参表]);</code><br></p>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">声明泛型接口</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">interface 接口名<类型参数表列>{  // 定义泛型接口\n    //……\n}\n</code></pre>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">声明泛型接口</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">// 实现接口时,应该声明与接口相同的类型参数\nclass 类名<类型参数表列> implements 接口名<类型参数表列>{\n    //…\n}\n</code></pre>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">声明泛型方法</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">泛型方法</p>', 'children': [{'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">// 泛型方法可以定义在泛型类中，也可以定义在非泛型类中\n[访问限定词] [static]<类型参数表列> 方法类型 方法名([参数表列]){\n    //…\n}\n</code></pre>'}]}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">具有可变参数的方法</p>', 'children': [{'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">// printf是具有可变参数的方法\nSystem.out.printf(“%d,%f\\n”,i,f);\nSystem.out.printf(“x=%d,y=%d,z=%d”,x,y,z);\n</code></pre>'}]}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">具有可变参数的方法</p>', 'children': [{'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">[访问限定词] <类型参数表列> 方法类型 方法名(类型参数名… 参数名){\n    //……\n}\n</code></pre>'}]}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">泛型参数的限定</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">`类型形式参数 extends 父类`</p>'}]}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">集合</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">List接口</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">Java中的集合类主要从Collection和Map两个接口派生。\nList接口的定义形式：public interface List<E> extends Collection<E>\n</code></pre>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">List接口</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">类型\t 方法名\t                  方法功能\nboolean\tadd(E e)\t        把元素e加到表的尾部\nvoid\tadd(int\xa0index, E\xa0e)\t把元素e加到表的index位置，原index位置元素顺序后移\nboolean\tequals(Object\xa0o)\t比较对象o是否与表中的元素是同一元素\nE\t    get(int\xa0index)\t    得到表中index位置的元素\nboolean\tindexOf(Object o)\t判断元素o在表中是否存在。如果不存在，则返回-1\nIterator<E>\titerator()\t    获得表的遍历器\nE\t     remove(int\xa0index)  将表中第index位置的元素删除\nboolean\tremove(Object\xa0o)\t删除表中与o相同的元素\nint\t     size()\t            得到表中元素的个数\n</code></pre>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">Stack类</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">Stack类的定义形式：public class Stack<E> extends Vector<E>\n</code></pre>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">Stack类</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-java"><code class="language-java">类型\t方法\t方法功能\nboolean\tempty()\t判断栈是否为空\nE\tpeek()\t得到栈顶元素但不从栈中删除\nE\tpop()\t得到栈顶元素而且将其从栈中删除\nE\tpush(E e)\t将元素e入栈（放在栈顶）\nint\tsearch(Object o)\t得到元素o在栈中的位置\n</code></pre>'}]}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">反射和标注</p>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">小结</p>'}]})</script></body>
+</html>

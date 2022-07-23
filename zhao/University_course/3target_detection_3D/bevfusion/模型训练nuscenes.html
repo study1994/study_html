@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>模型训练nuscenes_html</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 200vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">初始化</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/vtransforms/base.py:class BaseTransform:def create_frustum</p>self.image_size=[256, 704]原始图片大小900x1600<br>\nself.feature_size=[32, 88]下采样8倍后的大小<br>\nself.dbound=[1.0, 60.0, 0.5]1-60的深度信息，总共118个值；<br>\nds.shape=torch.Size([118, 32, 88])可以认为对于32x88里面有从1到60间隔0.5的tensor<br>\nxs.shape=torch.Size([118, 32, 88])可以认为对于32x88里面有从1到704间隔8.0805的tensor<br>\nys.shape=torch.Size([118, 32, 88])可以认为对于32x88里面有从1到256间隔8.2258的tensor竖着<br>\nfrustum.shape=torch.Size([118, 32, 88, 3])最终由118个深度信息从1-60的<br>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">训练过程</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/fusion_models/bevfusion.py:class BEVFusion:def forward</p>[sensor for sensor in self.encoders]=[\'camera\', \'lidar\']<br>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/fusion_models/bevfusion.py:class BEVFusion:def extract_camera_features</p>B, N, C, H, W=(2, 6, 3, 256, 704)-->1600x900(0.48):768x432<br>\nbackbone->[i.shape for i in x]=[(12,192,32,88),(12,384,16,44),(12,768,8,22)]<br>\nneck->[i.shape for i in x]=[(12,256,32,88),(12,256,16,44)]->(12,256,32,88)->(2,6,256,32,88)<br>\nself.encoders["camera"]["vtransform"]参数<br>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-python"><code class="language-python">[i.shape for i in points]=[(243766, 5), (255017, 5)]\ncamera2ego.shape=torch.Size([2, 6, 4, 4])\nlidar2ego.shape=torch.Size([2, 4, 4])\nlidar2camera.shape=torch.Size([2, 6, 4, 4])\nlidar2image.shape=torch.Size([2, 6, 4, 4])\ncamera_intrinsics.shape=torch.Size([2, 6, 4, 4])\nimg_aug_matrix.shape=torch.Size([2, 6, 4, 4])\nlidar_aug_matrix.shape=torch.Size([2, 4, 4])\n</code></pre>', 'children': [{'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/vtransforms/depth_lss.py:class DepthLSSTransform:def forward</p>', 'children': [{'type': 'heading', 'depth': 5, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/vtransforms/base.py:class BaseDepthTransform继承:def forward</p>depth.shape=(2, 6, 1, 256, 704)<br>\ncur_coords=(3, 243766 )->cur_coords=(6, 3, 243766)雷达坐标系-》图像坐标系到图像增强的坐标---》深度<br>\ngeom = self.get_geometry<br>', 'children': [{'type': 'heading', 'depth': 6, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/vtransforms/base.py:class BaseDepthTransform:def get_geometry</p>输入参数<br>'}, {'type': 'heading', 'depth': 6, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-"><code class="language-">rots,                       # 相机到ego_R         torch.Size([2, 6, 3, 3])\ntrans,                      # 相机到ego_t         torch.Size([2, 6, 3])\nintrins,                    # 相机内参\npost_rots,                  # 图像增强R\npost_trans,                 # 图像增强T\nlidar2ego_rots,             # 雷达到ego_R\nlidar2ego_trans,            # 雷达到ego_T'}, {'type': 'heading', 'depth': 6, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-"><code class="language-">可以认为self.frustum是图像上的点，到增强前图像上的点，到相机坐标系，到ego，到雷达坐标系                                                 \n从增强后的点到增强前图片的点：points.shape=torch.Size([2, 6, 118, 32, 88, 3])->points.shape=torch.Size([2, 6, 118, 32, 88, 3])                                        \n经过lift获得了某2D像素点在3D空间的特征，那么该像素具体位于3D空间的哪个坐标位置呢？\n目前已经得到了像素的2D像素坐标以及深度值，再加上相机的内参以及外参，即可计算得出像素对应的在车身坐标系中的3D坐标。'}]}, {'type': 'heading', 'depth': 5, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/vtransforms/base.py:class BaseDepthTransform:def forward</p>x = self.get_cam_feats(img, depth)将图像特征torch.Size([2, 6, 256, 32, 88])与图像坐标系里面的弄进来的深度特征torch.Size([2, 6, 1, 256, 704])<br>', 'children': [{'type': 'heading', 'depth': 6, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/vtransforms/depth_lss.py:class DepthLSSTransform:def get_cam_feats</p>\n<p>x-img:(2,6,256,32,88)-&gt;(12, 256, 32, 88)<br>\nd-depth:(2, 6, 1, 256, 704)-&gt;(12, 1, 256, 704)-&gt;{self.dtransform}-&gt;(12,64,32,88)<br>\n合起来x-(12, 320, 32, 88)-{self.depthnet}-(12, 198, 32, 88)<br>\ndepth-(12, 118, 32, 88)-{depth.unsqueeze(1)}-(12, 1, 118, 32, 88)+x[:, self.D : (self.D + self.C)].unsqueeze(2).shape=(12, 80, 1, 32, 88)<br>\n=&gt;x.shape=(12, 80, 118, 32, 88)<code>深度值*特征 = 2D特征转变为3D空间(俯视图)内的特征</code><br>\n经过一些列卷积操作啥的返回：x-(2, 6, 118, 32, 88, 80)<br></p>'}]}, {'type': 'heading', 'depth': 5, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/vtransforms/base.py:class BaseDepthTransform1:def forward</p>x = self.bev_pool(geom, x)<br>', 'children': [{'type': 'heading', 'depth': 6, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/vtransforms/base.py:class BaseDepthTransform:def bev_pool</p>\n<p>Nprime=3987456<br>\nx-&gt;torch.Size([3987456, 80])【self.C=80】<br>\nself.bx=tensor([-53.8500, -53.8500,   0.0000])；self.dx=tensor([0.3000,  0.3000, 20.0000])；self.dx=tensor([0.3000,  0.3000, 20.0000])<br>\ngeom_feats.shape=torch.Size([2, 6, 118, 32, 88, 3])-&gt; torch.Size([3987456, 3])-&gt;(3987456, 4)<br>\nself.nx=tensor([360, 360,   1], device=\'cuda:0\')<br>\nkept.shape=(3987456,);x-&gt;(3987456, 80)-&gt;(3667059, 80);geom_feats-&gt;(3667059, 4)<br>\n<code>mmdet3d/ops/bev_pool/bev_pool.py</code>:<code>def bev_pool</code><br>\nranks.shape=torch.Size([3667059]);<br>\nx-&gt;(2, 80, 1, 360, 360)<br></p>'}, {'type': 'heading', 'depth': 6, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/vtransforms/base.py1:class BaseDepthTransform:def bev_pool</p>final->(2, 80, 360, 360)<br>'}]}]}, {'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/vtransforms/depth_lss.py1:class DepthLSSTransform:def forward</p>x = self.downsample(x):(2, 80, 180, 180)<br>'}]}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdet3d/models/fusion_models/bevfusion.py1:class BEVFusion:def forward</p>[i.shape for i in features]=[(2, 80, 180, 180), (2, 256, 180, 180)]->(2, 256, 180, 180)<br>\nbackbone:(2, 128, 180, 180)+(2, 256, 90, 90)<br>\nneck:[(2, 512, 180, 180)]<br>'}]}]})</script></body>
+</html>

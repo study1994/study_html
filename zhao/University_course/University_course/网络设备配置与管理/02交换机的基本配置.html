@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>02交换机的基本配置</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p><a href="https://cd3e7135.wiz06.com/wapp/pages/view/share/s/3dfD4R2L0ATp2nAPoW2rL2tF1n73AS22c4l-2-A_Gk0K0UY-">1交换机的分类和工作原理</a></p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">（一）交换机的分类</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">（二）二层交换工作原理</p>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p><a href="https://cd3e7135.wiz06.com/wapp/pages/view/share/s/3dfD4R2L0ATp2nAPoW2rL2tF1TkFQp352AAz2AmyT22rzNX8">2交换机的初始配置</a></p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">（一）交换机的登录方式</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">1．通过Console口登录交换机</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">2．通过Telnet登录交换机</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">3．通过Web方式登录交换机</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">4．通过网管软件登录交换机</p>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">（二）对交换机进行初始配置</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">1．构建网络拓扑</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">2．对交换机进行初始配置</p>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">（三）交换机的命令模式</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">1．用户模式（User EXEC）</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">2．特权模式（Privileged EXEC）</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">3．全局配置模式（Global configuration）</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">4．接口配置模式（Interface configuration）</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">5．Line配置模式（Line configuration）</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">6．Setup模式</p>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">（四）使用命令完成交换机的初始配置</p>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p><a href="https://cd3e7135.wiz06.com/wapp/pages/view/share/s/3dfD4R2L0ATp2nAPoW2rL2tF2wEZSO3-5kal2_P7Dk2RfoYX">3交换机常用基本配置命令</a></p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">（一）端口选择命令</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">（二）端口参数配置命令</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">1．配置端口描述</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">2．配置端口工作模式</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">3．配置端口速度和单双工模式</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">4．禁用/启用端口</p>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">（三）其他配置命令</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">1．测试命令</p>'}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">2．查看端口信息命令</p>'}]}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p><a href="https://cd3e7135.wiz06.com/wapp/pages/view/share/s/3dfD4R2L0ATp2nAPoW2rL2tF1Yux_H13D4Qq2VlMjb1vZe8I">4组建小型办公网络</a></p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">1．构建网络拓扑</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">2．配置各电脑的IP地址</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">3．配置交换机</p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">4．测试配置结果</p>'}]}]})</script></body>
+</html>
