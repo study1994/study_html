@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>训练过程</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 150vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">获取特征</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">提取图片特征</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/detectors/futr3d.py：def extract_img_feat</p>ResNet->FPN:[(B,6,256,H,W),,,]<br>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">提取点云特征</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/detectors/futr3d.py：def extract_img_feat</p>voxel->HardSimpleVFE->SparseEncoder->SECOND->FPN-:(B,256,h,w)<br>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">提取Radar特征</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/backbones/radar_encoder.py：class RadarPointEncoder：def forward</p>RadarPointEncoderXY:[B, N, C]. N: as max->[B, N, C+1], last channel as 0-1 mask<br>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">特征融合</p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/dense_head/detr_mdfs_head.py：class DeformableFUTR3DHead：def forward</p>\n<p><code>num_query=600、embed_dims=256;nn.Embedding(num_embeddings-词典长度，embedding_dim-向量维度)</code><br>\nself.query_embedding = nn.Embedding(self.num_query,self.embed_dims * 2)<br></p>', 'children': [{'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/utils/transformer.py:class FUTR3DTransformer:def forward</p>mlvl_pts_feats:[bs, embed_dims, h, w];<br>\nquery_pos(bs,num_query,embed_dims); query(bs,num_query,embed_dims);<br>\nreference_points-(bs,num_query,3);-sigmoid->init_reference_out作为输出，reference_points<br>\n输入decode参数：<br>\nquery=query,key=None,pts_feats=mlvl_pts_feats,img_feats=mlvl_img_feats,rad_feats=rad_feats,query_pos=query_pos,<br>\nreference_points=reference_points,reg_branches=reg_branches,img_metas=img_metas,<br>', 'children': [{'type': 'heading', 'depth': 5, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/utils/transformer.py：class FUTR3DTransformerDecoder：def forward</p>\n<p>len(self.layers)=6;query=(num_query, bs, embed_dims)<br>\n<code>output = layer(output,*args,reference_points=reference_points_input,**kwargs)</code><br></p>', 'children': [{'type': 'heading', 'depth': 6, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmcv/cnn/bricks/transformer.py：class TransformerLayerSequence(继承)：def forward</p>\n<p>由这个函数进入DetrTransformerDecoderLayer<br>\n继承<code>mmdet/models/utils/transformer.py</code>:<code>DetrTransformerDecoderLayer</code>再继承<code>cnn/bricks/transformer.py</code>:<code>BaseTransformerLayer</code><br></p>', 'children': [{'type': 'heading', 'depth': 7, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-python"><code class="language-python">transformerlayers=dict(\n    type=\'DetrTransformerDecoderLayer\',\n    attn_cfgs=[\n        dict(\n            type=\'MultiheadAttention\',\n            embed_dims=256,\n            num_heads=8,\n            dropout=0.1),\n        dict(\n            type=\'FUTR3DCrossAtten\',\n            use_LiDAR=True,\n            use_Cam=True,\n            pc_range=point_cloud_range,\n            use_dconv=True,\n            use_level_cam_embed=True,\n            num_points=1,\n            embed_dims=256,\n            )\n    ],\n    feedforward_channels=512,\n    ffn_dropout=0.1,\n    operation_order=(\'self_attn\', \'norm\', \'cross_attn\', \'norm\',\'ffn\', \'norm\')))),\n</code></pre>'}]}, {'type': 'heading', 'depth': 6, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmcv/cnn/bricks/transformer.py：class TransformerLayerSequence(继承)</p>', 'children': [{'type': 'heading', 'depth': 7, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/utils/attention.py:class FUTR3DCrossAtten:def forward</p>\n<p><code>-------------------------if self.use_Cam------------------------------------</code><br>\nimg_attention_weights-(B, 1, num_query, num_cams, num_points, num_levels)<br>\nreference_points: (bs, num_query, 3)后面的3是指点云坐标系里面的x,y,z<br></p>', 'children': [{'type': 'heading', 'depth': 8, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/utils/attention.py:feature_sampling</p>\n<p>点云坐标—&gt;利用雷达到相机坐标（并归一化到-1-&gt;1之间），对于某张图片的特征<br>\nsampled_feat = F.grid_sample(feat, reference_points_cam_lvl)【(B*N, C, num_query/10, 10)=<code>B*N, C, H, W</code>+<code>B*num_cam, num_query/10, 10, 2</code>】<br>\n最后返回，点云坐标ref_point_3d (B, N, num_query, 3)采到的图像特征：sampled_feats (B, C, num_query, num_cam, num_points, len(lvl_feats))maks (B, N, num_query, 1)<br></p>'}]}, {'type': 'heading', 'depth': 7, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/utils/attention.py:class FUTR3DCrossAtten:def forward</p>\n<p><code>-------------------------if self.use_Cam------------------------------------</code><br>\n<code>-------------------------if self.use_radar------------------------------------</code><br>\n就是直接将坐标对应到相应的大小<br></p>'}]}]}, {'type': 'heading', 'depth': 5, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/utils/transformer.py：class FUTR3DTransformerDecoder：def forward</p>'}]}, {'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/utils/transformer.py:class FUTR3DTransformer:def forward</p>return inter_states, init_reference_out, inter_references_out<br>'}]}, {'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">plugin/futr3d/models/dense_head/detr_mdfs_head.py：class DeformableFUTR3DHead：def forward</p>'}]}]}]})</script></body>
+</html>
