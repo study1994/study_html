@@ -1,4 +1,5 @@
 # cp -rf /data3/zzhu/my_use/zhao_gitee/data_code/.history/zhao/* /data3/zzhu/my_use/zhao_gitee/study_html/zhao/*
+git config --global http.sslVerify "false"
 git add *
 git commit -m "gitadd"
 git push
