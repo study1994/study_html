@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>deploy_3D</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 150vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">tools/deploy.py:main()</p>set_start_method(\'spawn\')多线程设置<br>\ndeploy_cfg_path=\'configs/mmdet3d/voxel-detection/voxel-detection_tensorrt_dynamic-kitti.py\'<br>\nmodel_cfg_path=\'=mmdetection3d/configs/pointpillars/hv_pointpillars_secfpn_6x8_160e_kitti-3d-3class.py\'<br>\ncheckpoint_path=\'mmdetection3d/pretrain/hv_pointpillars_*/hv_pointpillars_*.pth\'<br>\n--dump-info：是否输出SDK的信息-》false<br>\nret_value=c_double(0.0)<br>\nir_config<br>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<pre class="language-python"><code class="language-python">\'type\':\'onnx\'\n\'export_params\':True\n\'keep_initializers_as_inputs\':False\n\'opset_version\':11\n\'save_file\':\'end2end.onnx\'\n\'input_names\':[\'voxels\', \'num_points\', \'coors\']\n\'output_names\':[\'scores\', \'bbox_preds\', \'dir_scores\']\n\'input_shape\':None\n\'dynamic_axes\':{\'voxels\': {0: \'voxels_num\'}, \'num_points\': {0: \'voxels_num\'}, \'coors\': {0: \'voxels_num\'}}\n</code></pre>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">tools/deploy.py:main()</p>ir_type=<IR.ONNX: \'onnx\'><br>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">tools/deploy.py:def create_process</p>\n<p>target:<function torch2onnx at 0x7ff9a0a59b90><br>\n执行到<code>process.join()</code><br></p>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/utils/utils.py:def target_wrapper</p>执行：result = target(*args, **kwargs)<br>', 'children': [{'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/apis/pytorch2onnx.py:def torch2onnx</p>input_shape=None<br>', 'children': [{'type': 'heading', 'depth': 5, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/apis/utils.py:def build_task_processor</p>codebase_type=<Codebase.MMDET3D: \'mmdet3d\'><br>\ncodebase=<class \'mmdeploy.codebase.mmdet3d.deploy.mmdetection3d.MMDetection3d\'><br>', 'children': [{'type': 'heading', 'depth': 6, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/codebase/mmdet3d/deploy/mmdetection3d.py:class MMDetection3d:def build_task_processor</p>MMDET3D_TASK=Registry(name=mmdet3d_tasks, items={\'VoxelDetection\': <class \'mmdeploy.codebase.mmdet3d.deploy.voxel_detection.VoxelDetection\'>})<br>', 'children': [{'type': 'heading', 'depth': 7, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/codebase/mmdet3d/deploy/voxel_detection.py:class VoxelDetection(BaseTask):def __init__</p>', 'children': [{'type': 'heading', 'depth': 8, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/codebase/base/task.py:class BaseTask(metaclass=ABCMeta):def __init__</p>codebase_type=<Codebase.MMDET3D: \'mmdet3d\'><br>\nself.codebase_class=<class \'mmdeploy.codebase.mmdet3d.deploy.mmdetection3d.MMDetection3d\'><br>'}]}]}]}]}, {'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/apis/pytorch2onnx.py:def torch2onnx</p>task_processor=<mmdeploy.codebase.mmdet3d.deploy.voxel_detection.VoxelDetection object at 0x7f8ea19bfbd0><br>', 'children': [{'type': 'heading', 'depth': 5, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/codebase/mmdet3d/deploy/voxel_detection.py:class VoxelDetection(BaseTask):def init_pytorch_model</p>\n<p><a href="https://gitee.com/zhao-study/data_code/blob/master/3target_detection/project/mmdeply/hv_pointpillars_secfpn_6x8_160e_kitti-3d-3class.log">hv_pointpillars_secfpn_6x8_160e_kitti-3d-3class.log</a><br></p>'}]}, {'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/apis/pytorch2onnx.py:def torch2onnx</p>data, model_inputs = task_processor.create_input(img, input_shape)<br>', 'children': [{'type': 'heading', 'depth': 5, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/codebase/mmdet3d/deploy/voxel_detection.py:class VoxelDetection(BaseTask):def create_input</p>data[\'points\'][0][0].shape=torch.Size([16897, 4]); voxels.shape=torch.Size([3945, 32, 4]); num_points.shape=torch.Size([3945]); coors.shape=torch.Size([3945, 4]);<br>'}]}, {'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/apis/pytorch2onnx.py:def torch2onnx</p>', 'children': [{'type': 'heading', 'depth': 5, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/apis/pytorch2onnx.py:def torch2onnx_impl</p>input[0].shape=torch.Size([3945, 32, 4]); input[1].shape=torch.Size([3945]); input[2].shape=torch.Size([3945, 4]);<br>\nexport_params=True;<br>\ninput_names=[\'voxels\', \'num_points\', \'coors\']; dynamic_axes={\'voxels\': {0: \'voxels_num\'}, \'num_points\': {0: \'voxels_num\'}, \'coors\': {0: \'voxels_num\'}};<br>', 'children': [{'type': 'heading', 'depth': 6, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/core/rewriters/rewriter_manager.py:def patch_model</p>\n<p><a href="https://gitee.com/zhao-study/data_code/blob/master/3target_detection/project/mmdeply/hv_pointpillars_secfpn_6x8_160e_kitti-3d-3class_patched.log">hv_pointpillars_secfpn_6x8_160e_kitti-3d-3class_patched.log</a><br></p>'}]}, {'type': 'heading', 'depth': 5, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/apis/pytorch2onnx.py:def torch2onnx_impl</p>onnx_cfg[\'keep_initializers_as_inputs\']=False; verbose=False;<br>\n<br>'}]}]}]}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">tools/deploy.py:main()</p>backend_files=[\'work-dir/hv_pointpillars_secfpn_6x8_160e_kitti-3d-3class/end2end.onnx\']<br>\nbackend=<Backend.TENSORRT: \'tensorrt\'><br>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">mmdeploy/backend/tensorrt/onnx2tensorrt.py:def onnx2tensorrt</p>onnx_model=\'work-dir/hv_pointpillars_secfpn_6x8_160e_kitti-3d-3class/end2end.onnx\'<br>\ninput_shapes={\'voxels\':{\'min_shape\': [2000, 32, 4], \'opt_shape\': [5000, 32, 4], \'max_shape\': [9000, 32, 4]},\'num_points\':{\'min_shape\': [2000], \'opt_shape\': [5000], \'max_shape\': [9000]},\'coors\':{\'min_shape\': [2000, 4], \'opt_shape\': [5000, 4], \'max_shape\': [9000, 4]}}<br>\nfinal_params.get(\'fp16_mode\', False)=False; final_params.get(\'int8_mode\', False)=False;<br>'}]}]})</script></body>
+</html>
