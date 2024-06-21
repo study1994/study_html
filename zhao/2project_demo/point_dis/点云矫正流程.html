@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>点云矫正流程</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">app/undistord.cc</p><font size="0"><pre class="language-cpp"><code class="language-cpp">int main(int argc, char **argv){\n    Undistored <span style=\'color: green;font-weight: bold;\'>undistored</span>("./config/test.yaml");\n    while (undistored.Finished()){\n        sleep(1);\n    }\n    return 0;\n}\n</code></pre></font>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">app/undistord.cc</p><font size="0"><pre class="language-cpp"><code class="language-cpp">Undistored::Undistored(const std::string &cfg_path){\n    <span style=\'color: green;font-weight: bold;\'>init</span>(cfg_path);\n    project_lidar.defalt();\n    if (access(("./result"), 0) == 0){\n        cout << "------------------result already exist!--------------------------" << endl;\n        log_txt.open("./result/log.txt", ios::out);\n    }\n    else{\n        cout << "-------------------------creat result !--------------------------" << endl;\n        mkdir(("./result"), S_IRWXU);\n        mkdir(("./result/img"), S_IRWXU);\n        mkdir(("./result/pcd"), S_IRWXU);\n        log_txt.open("./result/log.txt", ios::out);\n    }\n}\n</code></pre></font>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">source/pipeline.cpp</p><font size="0"><pre class="language-cpp"><code class="language-cpp">void PipeLine::init(const std::string &cfg_path){\n    is_run_ = true;\n    rtk_deq_.clear();\n    imu_deq_.clear();\n    vehicle_deq_.clear();\n    video_deq_.clear();\n    lidar_deq_.clear();\n    YAML::Node cfg = YAML::LoadFile(cfg_path);\n    std::string data_path = cfg["path"].as<span style=\'color: green;font-weight: bold;\'><</span>std::string<span style=\'color: green;font-weight: bold;\'>></span>();    <span style=\'color: red\'>// "/mnt/Minieye_GT_Nas/Minieye_GT_Dataset//EP40_C90776/20240328/seq_01"</span>\n    log_ = cfg["log"].as<span style=\'color: green;font-weight: bold;\'><</span>int<span style=\'color: green;font-weight: bold;\'>></span>();                              <span style=\'color: red\'>// 0</span>\n    cache_ = cfg["cache"].as<span style=\'color: green;font-weight: bold;\'><</span>int<span style=\'color: green;font-weight: bold;\'>></span>();                          <span style=\'color: red\'>// 10</span>\n    trigger_sensor_ = MsgType(cfg["trigger"].as<span style=\'color: green;font-weight: bold;\'><</span>int<span style=\'color: green;font-weight: bold;\'>></span>());  \n    rtk_loader_ptr_ = std::make_shared<span style=\'color: green;font-weight: bold;\'><</span><span style=\'color: green;font-weight: bold;\'>ParseRtk</span><span style=\'color: green;font-weight: bold;\'>></span>(cfg_path);\n    imu_loader_ptr_ = std::make_shared<span style=\'color: green;font-weight: bold;\'><</span>ParseImu<span style=\'color: green;font-weight: bold;\'>></span>(cfg_path);\n    vehicle_loader_ptr_ = std::make_shared<span style=\'color: green;font-weight: bold;\'><</span>ParseVehicle<span style=\'color: green;font-weight: bold;\'>></span>(cfg_path);\n    video_loader_ptr_ = std::make_shared<span style=\'color: green;font-weight: bold;\'><</span>ParseVideo<span style=\'color: green;font-weight: bold;\'>></span>(cfg_path);\n    lidar_loader_ptr_ = std::make_shared<span style=\'color: green;font-weight: bold;\'><</span>ParseLidar<span style=\'color: green;font-weight: bold;\'>></span>(cfg_path);\n    thr_get_ = std::make_shared<span style=\'color: green;font-weight: bold;\'><</span>std::thread<span style=\'color: green;font-weight: bold;\'>></span>(&PipeLine::GetData, this);\n    thr_out_ = std::make_shared<span style=\'color: green;font-weight: bold;\'><</span>std::thread<span style=\'color: green;font-weight: bold;\'>></span>(&PipeLine::Output, this);\n    thr_print_ = std::make_shared<span style=\'color: green;font-weight: bold;\'><</span>std::thread<span style=\'color: green;font-weight: bold;\'>></span>(&PipeLine::PrintLog, this);\n}\n</code></pre></font>', 'children': [{'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">source/parse_rtk.cpp</p><font size="0"><pre class="language-cpp"><code class="language-cpp">ParseRtk::ParseRtk(const std::string &cfg_path){\n    rtk_deq_.clear();\n    YAML::Node cfg = YAML::LoadFile(cfg_path);\n    std::string data_path = cfg["path"].as<span style=\'color: green;font-weight: bold;\'><</span>std::string<span style=\'color: green;font-weight: bold;\'>></span>();\n    cache_ = cfg["cache"].as<span style=\'color: green;font-weight: bold;\'><</span>int<span style=\'color: green;font-weight: bold;\'>></span>();  \n    if (data_path.empty()){\n        return;\n    }\n    odo_log_ = data_path + cfg["odo_name"].as<span style=\'color: green;font-weight: bold;\'><</span>std::string<span style=\'color: green;font-weight: bold;\'>></span>();            <span style=\'color: red\'>// "/....../seq_01/rtk/odometry_x16h.txt"</span>\n    thr_ = std::make_shared<span style=\'color: green;font-weight: bold;\'><</span>std::thread<span style=\'color: green;font-weight: bold;\'>></span>(&ParseRtk::Parse, this);\n}\n</code></pre></font>'}]}]}]}]})</script></body>
+</html>

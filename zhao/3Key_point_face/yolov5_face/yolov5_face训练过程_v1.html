@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>yolov5_face训练过程</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/prism.css"><link rel="stylesheet" href="https://study1994.github.io/study_html/npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/d3@6.7.0"></script>
+    <script src="https://study1994.github.io/study_html/npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">数据处理</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">utils/face_datasets.py：class LoadFaceImagesAndLabels：def __init__</p>len(self.img_files)=12880<br>\nself.img_files[0]=\'/sdb/zzhu/open_code/yolov5-face/data/widerface/train/0_Parade_Parade_0_1014.jpg\'<br>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">utils/face_datasets.py：class LoadFaceImagesAndLabels：def cache_labels</p>assert l.shape[1] == 5, \'labels require 5 columns each\'：5变15<br>\nassert (l >= 0).all(), \'negative labels\'：0变-1<br>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">utils/face_datasets.py：class LoadFaceImagesAndLabels：def __getitem__</p>img, labels = load_mosaic_face(self, index)<br>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">utils/face_datasets.py：def load_mosaic_face</p>\n<p>先建立一个大图，(<code>2*s</code>，<code>2*s</code>),【y1a:y2a,x1a:x2a】是在大图的位置，【y1b:y2b, x1b:x2b】小图位置<br>\npadw&gt;0说明x方向没被切，padh&lt;0说明x方向被切<br>\nlabels[:, 5] = np.array(x[:, 5] &gt; 0, dtype=np.int32) * (w * x[:, 5] + padw) + (np.array(x[:, 5] &gt; 0, dtype=np.int32) - 1)<br>\n相当于遮挡的为-1没遮挡的都会计算<br></p>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">utils/face_datasets.py：class LoadFaceImagesAndLabels：def __getitem__</p>img, labels = random_perspective<br>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">utils/face_datasets.py：def random_perspective</p>\n<p>xy=np.ones((n * 9, 3))多5个关键点<br>\n<code>1,2,3,4,1,4,3,2</code>表示x1y1,x2y2,x1y2,x2y1;<code>5,6,7,8,9,10,11,12,13,14</code>表示5个点xp1yp1,xp2yp2,xp3yp3,xp4yp4,xp5yp5<br>\n.reshape(n, 18)中18表示9个点<br>\nlandmarks的操作是只要其中一个点的x出去了，点的y也变成-1<br></p>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">utils/face_datasets.py：class LoadFaceImagesAndLabels：def __getitem__</p>归一化到0-1<br>\n注意作呕翻转的时候顺序会变：左右镜像的时候，左眼、右眼，\u3000左嘴角、右嘴角无法区分, 应该交换位置，便于网络学习<br>'}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">模型训练</p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">utils/loss.py：def compute_loss</p>[i.shape for i in p]=[torch.Size([16,3,100,100,16]), torch.Size([16,3,50,50,16]), torch.Size([16,3,25,25,16])]<br>\n16:0-3(xywh);4置信度；5-1410个关键点x1y1->x5y5;15类别<br>\n多了tlandmarks和lmks_mask结果<br>\ntcls, tbox, indices, anchors, tlandmarks, lmks_mask = build_targets(p, targets, model)<br>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">utils/loss.py：def build_targets</p>\n<p>na, nt=3，518<br>\ngain = torch.ones(17, device=targets.device)多了10，<br>\n原先7为：对应(image,class,x,y,w,h)与合并的anchor<br>\nai=(3,518)<br>\ntargets:torch.Size([3, 518, 17])--&gt;(targets.repeat(na, 1, 1)).shape=torch.Size([3, 518, 16])+(ai[:, :, None]).shape=torch.Size([3, 518, 1])<br>\nanchors=torch.Size([3, 2]),就是给3个长宽不一样的anchor<br>\nt = targets * gain相当于将归一化的点恢复到feature map的大小<br>\nr.shape=torch.Size([3, 518, 2]);有最大的宽或者高与anchor的宽高比小于4= model.hyp[\'anchor_t\']<br>\nt-&gt;torch.Size([3, 518, 17])-&gt;t为torch.Size([1303, 17])匹配上的<br>\ngxy.shape=torch.Size([1303, 2]),假设第0个=(19.53795, 75.11905)-&gt;gxi第0个为（80.46205, 24.88095）<br>\nj,k,l,m为torch.Size([1303])的bool数据---&gt;j.shape=torch.Size([5, 1303])---&gt;t.repeat((5, 1, 1))=(5,1303,17)-&gt;t.shape=torch.Size([3903, 17])<br>\noffset-&gt;torch.Size([3903, 2]);相当于一个gt与本身和上下左右的box做anchor<br>\n<code>--------得到以下--------</code><br>\nb, c = t[:, :2].long().T  # image, class<br>\ngxy = t[:, 2:4]  # grid xy<br>\ngwh = t[:, 4:6]  # grid wh<br>\ngij = (gxy - offsets).long()<br>\ngi, gj = gij.T  # grid xy indices<br>\n<code>-----------------------</code><br>\n关键点lks.shape=torch.Size([3903, 10])<br></p>'}]}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">utils/loss.py：def compute_loss</p>'}]}]})</script></body>
+</html>
