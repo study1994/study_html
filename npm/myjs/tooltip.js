@@ -6,41 +6,56 @@
   // === 核心：自定义高亮函数 ===
   function customHighlightCode(code) {
     if (!code) return '';
-    // 将 &#10; 转回 \n（因为 data-code 中换行被转义为 &#10;）
     code = code.replace(/&#10;/g, '\n');
-    
     const lines = code.split('\n');
-    const processedLines = lines.map((line, index) => {
-      let htmlLine = line;
-
-      // 1. 处理行内代码：`内容` → 绿色加粗
-      htmlLine = htmlLine.replace(/`([^`]+)`/g, '<span style="color:green;font-weight:bold">$1</span>');
-
-      // 2. 处理 # 注释（只匹配第一个 #，且前面无非空白字符干扰）
-      const hashIndex = htmlLine.search(/\s*#/);
-      if (hashIndex !== -1 && !/['"`]/.test(htmlLine.slice(0, hashIndex))) {
-        const before = htmlLine.slice(0, hashIndex);
-        const after = htmlLine.slice(hashIndex);
-        htmlLine = before + '<span style="color:red">' + after + '</span>';
+  
+    return lines.map((line, index) => {
+      let processedLine = line;
+  
+      // 1. 处理行内代码：`...` → 绿色加粗（所有行都处理）
+      processedLine = processedLine.replace(/`([^`]+)`/g, '<span style="color:green;font-weight:bold">$1</span>');
+  
+      // 2. 检测是否有 # 或 // 注释（简单判断：不在字符串中）
+      let commentPart = '';
+      let codePart = processedLine;
+      let hasComment = false;
+  
+      // 先尝试匹配 # 注释
+      const hashMatch = processedLine.match(/^([^#]*?)(\s*#.*)$/);
+      if (hashMatch && !/['"`]/.test(hashMatch[1])) {
+        codePart = hashMatch[1];
+        commentPart = hashMatch[2];
+        hasComment = true;
       } else {
-        // 3. 处理 // 注释（同理）
-        const slashIndex = htmlLine.search(/\s*\/\//);
-        if (slashIndex !== -1 && !/['"`]/.test(htmlLine.slice(0, slashIndex))) {
-          const before = htmlLine.slice(0, slashIndex);
-          const after = htmlLine.slice(slashIndex);
-          htmlLine = before + '<span style="color:red">' + after + '</span>';
+        // 再尝试 // 注释
+        const slashMatch = processedLine.match(/^(.*?)(\s*\/\/.*)$/);
+        if (slashMatch && !/['"`]/.test(slashMatch[1])) {
+          codePart = slashMatch[1];
+          commentPart = slashMatch[2];
+          hasComment = true;
         }
       }
-
-      // 4. 第一行整体加蓝色+加粗
+  
+      // 3. 如果是第一行，特殊处理
       if (index === 0) {
-        htmlLine = '<span style="color:blue;font-weight:bold">' + htmlLine + '</span>';
+        if (hasComment) {
+          // 第一行有注释：codePart 蓝+粗，commentPart 红（不粗）
+          codePart = codePart ? `<span style="color:blue;font-weight:bold">${codePart}</span>` : '';
+          commentPart = `<span style="color:red">${commentPart}</span>`;
+          return codePart + commentPart;
+        } else {
+          // 第一行无注释：整行蓝+粗
+          return `<span style="color:blue;font-weight:bold">${processedLine}</span>`;
+        }
+      } else {
+        // 非第一行：注释部分红，其余保持原样（已处理过 `` 和注释）
+        if (hasComment) {
+          return codePart + `<span style="color:red">${commentPart}</span>`;
+        } else {
+          return processedLine;
+        }
       }
-
-      return htmlLine;
-    });
-
-    return processedLines.join('\n');
+    }).join('\n');
   }
 
   // === Hover Tooltip ===
