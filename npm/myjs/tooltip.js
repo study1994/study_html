@@ -1,4 +1,4 @@
-// tooltip.js - 自定义高亮：支持第一行蓝粗、#//注释红、`code`绿粗
+// tooltip.js - 自定义高亮：第一行红粗，注释蓝（不粗），`code`绿粗
 (function () {
   let hoverTooltip = null;
   let modal = null;
@@ -8,26 +8,26 @@
     if (!code) return '';
     code = code.replace(/&#10;/g, '\n');
     const lines = code.split('\n');
-  
+
     return lines.map((line, index) => {
       let processedLine = line;
-  
-      // 1. 处理行内代码：`...` → 绿色加粗（所有行都处理）
+
+      // 1. 处理行内代码：`内容` → 绿色加粗（所有行）
       processedLine = processedLine.replace(/`([^`]+)`/g, '<span style="color:green;font-weight:bold">$1</span>');
-  
-      // 2. 检测是否有 # 或 // 注释（简单判断：不在字符串中）
+
+      // 2. 检测注释：# 或 //
       let commentPart = '';
       let codePart = processedLine;
       let hasComment = false;
-  
-      // 先尝试匹配 # 注释
+
+      // 匹配 # 注释（前面不能有 ' " `）
       const hashMatch = processedLine.match(/^([^#]*?)(\s*#.*)$/);
       if (hashMatch && !/['"`]/.test(hashMatch[1])) {
         codePart = hashMatch[1];
         commentPart = hashMatch[2];
         hasComment = true;
       } else {
-        // 再尝试 // 注释
+        // 匹配 // 注释
         const slashMatch = processedLine.match(/^(.*?)(\s*\/\/.*)$/);
         if (slashMatch && !/['"`]/.test(slashMatch[1])) {
           codePart = slashMatch[1];
@@ -35,22 +35,21 @@
           hasComment = true;
         }
       }
-  
-      // 3. 如果是第一行，特殊处理
+
+      // 3. 第一行特殊处理：codePart → 红+粗，commentPart → 蓝（不粗）
       if (index === 0) {
         if (hasComment) {
-          // 第一行有注释：codePart 蓝+粗，commentPart 红（不粗）
-          codePart = codePart ? `<span style="color:blue;font-weight:bold">${codePart}</span>` : '';
-          commentPart = `<span style="color:red">${commentPart}</span>`;
-          return codePart + commentPart;
+          const codeStyled = codePart ? `<span style="color:red;font-weight:bold">${codePart}</span>` : '';
+          const commentStyled = `<span style="color:blue">${commentPart}</span>`;
+          return codeStyled + commentStyled;
         } else {
-          // 第一行无注释：整行蓝+粗
-          return `<span style="color:blue;font-weight:bold">${processedLine}</span>`;
+          // 整行无注释：全红加粗
+          return `<span style="color:red;font-weight:bold">${processedLine}</span>`;
         }
       } else {
-        // 非第一行：注释部分红，其余保持原样（已处理过 `` 和注释）
+        // 非第一行：注释部分 → 蓝色（不加粗），其余保持原样
         if (hasComment) {
-          return codePart + `<span style="color:red">${commentPart}</span>`;
+          return codePart + `<span style="color:blue">${commentPart}</span>`;
         } else {
           return processedLine;
         }
@@ -117,8 +116,9 @@
   function showCodeInModal(code) {
     const m = createModal();
     const pre = m.querySelector('#modal-pre');
-    pre.innerHTML = customHighlightCode(code); // 直接插入 HTML
-    m.querySelector('div[style*="overflow:auto"]').scrollTop = 0;
+    pre.innerHTML = customHighlightCode(code);
+    const scrollBox = m.querySelector('div[style*="overflow:auto"]');
+    if (scrollBox) scrollBox.scrollTop = 0;
   }
 
   // === 绑定事件 ===
@@ -139,7 +139,7 @@
     });
   }
 
-  // === 初始化：查找所有 .hidden-code 并绑定 ===
+  // === 初始化 ===
   function init() {
     document.querySelectorAll('g.markmap-node foreignObject .hidden-code').forEach(span => {
       const node = span.closest('g.markmap-node');
@@ -150,7 +150,7 @@
     });
   }
 
-  // === 等待 Markmap 渲染完成 ===
+  // === 等待 Markmap 渲染 ===
   function waitForMarkmap() {
     if (document.querySelector('g.markmap-node foreignObject .hidden-code')) {
       init();
@@ -159,6 +159,5 @@
     }
   }
 
-  // 启动
   setTimeout(waitForMarkmap, 500);
 })();
