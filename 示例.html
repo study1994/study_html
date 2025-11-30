@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>示例</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+.hidden-code {
+  display: none !important;
+}
+</style>
+<link rel="stylesheet" href="./npm//npm/prism.css"><link rel="stylesheet" href="./npm//npm/markmap-toolbar@0.13.5/dist/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="./npm//npm/d3@6.7.0"></script>
+    <script src="./npm//npm/markmap-view@0.13.5"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p><a href="https://www.baidu.com">baidu</a></p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">你好</p>不过<br>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">好吧</p>代码在文字下面试一下<br>\n<span class=\'hidden-code\' data-code=\'# 注释c++\n// 注释c++\nif code:\n    print("ok1")\n\'> </span>', 'children': [{'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">`a=b^2`</p>'}, {'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">段落有公式</p>`a=b^2`<br>'}, {'type': 'heading', 'depth': 4, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">代码里面有注释</p><span class=\'hidden-code\' data-code=\'// 注释python\n# 注释python\nif code:     // 注释注释很长-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n    print("ok2")  # 注释\n\'> </span>\n文字<br>\n公式a=b<p>测试<br>\n符号<code>ab</code>你好ab<br></p>'}]}]}]}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p><a href="https://www.baidu.com">baidu</a></p>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">你好</p>不过<br>\n公式a=b<p>测试<br>\n<code>123</code>有公式``无效<br></p>'}, {'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '`a=b`<br>\nok<br>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">代码</p><span class=\'hidden-code\' data-code=\'class a:\n    if `code`:      # 注释\n        print("ok3")\n\'> </span>'}]}]}]})</script><script src='./npm//npm/myjs/tooltip.js'></script>
+</body>
+</html>
