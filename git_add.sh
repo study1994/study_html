@@ -8,5 +8,3 @@ git push
 # OpenSSL SSL_read: Connection was reset, errno 10054 git config --global http.sslVerify "false"
 # 都是小写
 # <span class='hidden-code' data-code='  '></span>
-./npm/
-./npm/
