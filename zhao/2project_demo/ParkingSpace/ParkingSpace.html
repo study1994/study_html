@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>ParkingSpace</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+.hidden-code {
+  display: none !important;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/mycss/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/myjs/d3@6.7.0.js"></script>
+    <script src="https://study1994.github.io/study_html/npm/myjs/markmap-view@0.13.5.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">数据处理</p>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">模型结构</p>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">模型训练</p>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">模型推理</p>一个像素2.9cm；544x736的分辨率为左右16m，前后21.6470m<br>\n一、停车位检测（Slot Detection）：<br>\n每个车位由 4 个角点 表示（pointset0~3）0-1的边为车位入口<br>\n每个角点包含：2D 偏移（x, y） + 占用分类置信度（cls_pointX）<br>\n二、整体车位还有一个 是否被占用 的二分类（cls_slot_occ）<br>\n限位器检测（Rod Detection）：<br>\n三、每个限位器由 10 个点（共 20 个坐标值）表示（可能是轮廓或关键点）<br>\n仅回归点坐标，无额外分类(顺序)<br>\n<span class=\'hidden-code\' data-code=\'K = 50\ninp = np.stack(img_list, axis=0)\nout = session.run(None, {’img’: inp})          544, 736\noutputs = dict()\noutputs[’hm_slot’] = torch.tensor(out[0])      (1, 1, 46, 34)     下采样16倍\noutputs[’slot_points’] = torch.tensor(out[1])  (1, 12, 46, 34)\noutputs[’cls_slot_occ’] = torch.tensor(out[2]) (1, 1, 46, 34)\noutputs[’hm_rod’] = torch.tensor(out[3])       (1, 1, 46, 34)\noutputs[’rod_points’] = torch.tensor(out[4])   (1, 20, 46, 34)\ndetections = `decode_slots`(outputs, None, K)\n\'> </span>', 'children': [{'type': 'heading', 'depth': 2, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">decode_slots</p><span class=\'hidden-code\' data-code=\'def decode_slots(outputs, gt=None, K=100):\n    # decode slot  车位\n    hm_center = torch.sigmoid(outputs[’hm_slot’])    # torch.Size([1, 1, 46, 34])\n    batch, cat, height, width = hm_center.size()\n    heat = `_nms`(hm_center)\n    probs, inds, clses, ys, xs = _topk(heat, K=K)    # torch.Size([1, 50]);torch.Size([1, 50]);...;torch.Size([1, 50]);torch.Size([1, 50])\n    reg_pointsets = _transpose_and_gather_feat(outputs[’slot_points’], inds)  # torch.Size([1, 12, 46, 34])+torch.Size([1, 50])=>torch.Size([1, 50, 12])\n    reg_pointsets = reg_pointsets.reshape(batch, K, 4, 3)   # torch.Size([1, 50, 4, 3])\n    pointset0 = reg_pointsets[:, :, 0, :2]*10     # torch.Size([1, 50, 2])\n    pointset1 = reg_pointsets[:, :, 1, :2]*10\n    pointset2 = reg_pointsets[:, :, 2, :2]*10\n    pointset3 = reg_pointsets[:, :, 3, :2]*10\n    cls_point0 = reg_pointsets[:, :, 0, 2:]  # torch.Size([1, 50, 1])\n    cls_point0 = torch.sigmoid(cls_point0)\n    cls_point1 = reg_pointsets[:, :, 1, 2:]\n    cls_point1 = torch.sigmoid(cls_point1)\n    cls_point2 = reg_pointsets[:, :, 2, 2:]\n    cls_point2 = torch.sigmoid(cls_point2)\n    cls_point3 = reg_pointsets[:, :, 3, 2:]\n    cls_point3 = torch.sigmoid(cls_point3)\n    # 是否占位\n    cls_slot_occ = _transpose_and_gather_feat(outputs[’cls_slot_occ’], inds)     # torch.Size([1, 50, 1])\n    cls_slot_occ = torch.sigmoid(cls_slot_occ)\n    detections = {}\n    detections[’hm_slot’] = hm_center\n    detections[’slot_probs’] = probs\n    detections[’slot_xs’] = xs\n    detections[’slot_ys’] = ys\n    detections[’slot_points0’] = pointset0\n    detections[’slot_points1’] = pointset1\n    detections[’slot_points2’] = pointset2\n    detections[’slot_points3’] = pointset3\n    detections[’cls_point0’] = cls_point0\n    detections[’cls_point1’] = cls_point1\n    detections[’cls_point2’] = cls_point2\n    detections[’cls_point3’] = cls_point3\n    detections[’cls_slot_occ’] = cls_slot_occ\n    # decode rod  限位器\n    hm_center = torch.sigmoid(outputs[’hm_rod’])\n    batch, cat, height, width = hm_center.size()\n    heat = _nms(hm_center)\n    probs, inds, clses, ys, xs = _topk(heat, K=K)     # torch.Size([1, 50])\n    reg_pointsets = _transpose_and_gather_feat(outputs[’rod_points’], inds)\n    reg_pointsets = reg_pointsets.reshape(batch, K, 1, 20)   # 只回归10个点\n    pointset0 = reg_pointsets[:, :, 0, :]*10\n    detections[’hm_rod’] = hm_center\n    detections[’rod_probs’] = probs\n    detections[’rod_xs’] = xs\n    detections[’rod_ys’] = ys\n    detections[’rod_points’] = pointset0\n    return detections\n\'> </span>', 'children': [{'type': 'heading', 'depth': 3, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">_nms</p><span class=\'hidden-code\' data-code=\'def _nms(heat, kernel=3):\n    pad = (kernel - 1) // 2\n    hmax = nn.functional.max_pool2d(heat, (kernel, kernel), stride=1, padding=pad)\n    keep = (hmax == heat).float()\n    return heat * keep\n\'> </span>'}]}]}]})</script>
+    <script src='https://study1994.github.io/study_html/npm/myjs/tooltip.js'></script>
+  </body>
+</html>

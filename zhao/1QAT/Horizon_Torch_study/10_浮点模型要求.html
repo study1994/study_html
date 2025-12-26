@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>10_浮点模型要求</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+.hidden-code {
+  display: none !important;
+}
+</style>
+<link rel="stylesheet" href="https://study1994.github.io/study_html/npm/mycss/style.css">
+</head>
+<body>
+    <svg id="mindmap"></svg>
+    <script src="https://study1994.github.io/study_html/npm/myjs/d3@6.7.0.js"></script>
+    <script src="https://study1994.github.io/study_html/npm/myjs/markmap-view@0.13.5.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full"></script>
+    <script>
+        (r => {
+            setTimeout(r);
+        })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const toolbar = new markmap.Toolbar();
+  toolbar.attach(mm);
+  const el = toolbar.render();
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root, jsonOptions) => {
+        const markmap = getMarkmap();
+        window.mm = markmap.Markmap.create('svg#mindmap', (getOptions || markmap.deriveOptions)(jsonOptions), root);
+      })(() => window.markmap,null,{'type': 'root', 'depth': 0, 'content': '', 'children': [{'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">symbolic_trace</p>horizon_plugin_pytorch基于fx设计和开发，要求浮点模型必须是可以正确的完成symbolic_trace<br>\n<span class=\'hidden-code\' data-code=\'FX（Function Transformations） 是 PyTorch 官方从 PyTorch 1.8+ 引入的一套用于 Python 代码分析、转换和重写的工具库，属于 torch.fx 模块\n它的核心目标是：将一个普通的 PyTorch 模型（nn.Module）自动转换成可静态分析的中间表示（IR）——即“计算图”。\nsymbolic_trace 是 torch.fx 提供的一个函数，用于对一个 nn.Module 进行符号化追踪（Symbolic Tracing），生成其计算图。\nimport torch\nimport torch.nn as nn\nfrom torch.fx import symbolic_trace\nclass SimpleNet(nn.Module):\n    def __init__(self):\n        super().__init__()\n        self.conv = nn.Conv2d(3, 16, 3)\n        self.relu = nn.ReLU()\n    def forward(self, x):\n        x = self.conv(x)\n        x = self.relu(x)\n        return x\nmodel = SimpleNet()\ngm = symbolic_trace(model)\n打印计算图\nprint(gm.graph)\ngraph():\n    %x : [#users=1] = placeholder[target=x]\n    %conv : [#users=1] = call_module[target=conv](args = (%x,), kwargs = {})\n    %relu : [#(users=1] = call_module[target=relu](args = (%conv,), kwargs = {})\n    return relu\n\'> </span>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">支持算子范围</p>工具链算子支持约束列表章节所列出的算子<br>\n基于BPU限制而内部特殊定义的特殊算子<br>'}, {'type': 'heading', 'depth': 1, 'payload': {'lines': [0, 1]}, 'content': '<p style="color: blue;font-weight: bold;">构建量化友好模型</p>1. 尽量少使用值域不受限的非线性算子如 reciprocal、exp、pow 等，此类算子输出范围可能过大，导致量化精度低。<br>\n1. softmax，layernorm 等，这类算子一般底层由查表或多个 op 拼接实现，容易发生掉点问题<br>\n2. 保证多次调用的共享算子每次调用的输出分布差异不要太大，或者将共享算子拆开分别单独使用。<br>\n3. 避免多输入算子不同输入的数值范围差异过大【add，cat】。<br>\n4. 使用int16量化数值范围和误差都非常大的op。可通过debug工具找到这类 op。<br>\n5. 通过调大weight decay，增加数据增强等方式防止模型过拟合。过拟合模型容易出现较大数值，且对输入非常敏感，轻微的误差可能导致输出完全错误。<br>\n6. 使用 BN。<br>\n7. 对模型输入做关于 0 对称的归一化。<br>'}]})</script>
+    <script src='https://study1994.github.io/study_html/npm/myjs/tooltip.js'></script>
+  </body>
+</html>
